@@ -1,8 +1,8 @@
-;nasm -f elf64 -o <name>.o <name>.asm
-;ld <name>.o -o <name>
+;assembler:	nasm -f elf64 -o <name>.o <name>.asm
+;linker: 	ld <name>.o -o <name>
 
 section .data
-	text db "Hello, World!",10
+	text db "Hello, World!",10		;10 ascii code for \n
 section .text
 	global _start
 _start:
