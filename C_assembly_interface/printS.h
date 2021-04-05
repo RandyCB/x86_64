@@ -1,0 +1,1 @@
+void printS(char x[]);
