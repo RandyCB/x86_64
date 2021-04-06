@@ -9,11 +9,15 @@
 ;6			r9
 
 
+section .bss
+userInput resb 64
+
 section .text
 global printS
+global inputS
 
 printS:
-	mov rax, rdi
+	mov rax, rdi				;getting first argument into rax
 	mov rbx,0
 		
 	printLoop:
@@ -31,6 +35,17 @@ printS:
 		mov rdx,rbx			;counter
 		syscall
 
+	ret
+
+
+inputS:
+	mov rax,0			
+	mov rdi,0				
+	mov rsi,userInput
+	mov rdx,64
+	syscall
+	
+	mov rax, rsi
 	ret
 
 
