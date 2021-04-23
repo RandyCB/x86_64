@@ -15,6 +15,7 @@ userInput resb 64
 section .text
 global printS
 global inputS
+global writeS
 
 printS:
 	mov rax, rdi				;getting first argument into rax
@@ -47,6 +48,30 @@ inputS:
 	
 	mov rax, rsi
 	ret
+
+writeS:	
+		
+	mov r8, rsi
+	mov r10,rdx
+	mov rax, 2 			;system open 
+	;mov rdi, filename		
+	mov rsi, 64+1			;create and write only flags
+	mov rdx, 0644o			; 0 + [r+w] + [r] + [r]  (#)o octal numbers
+	syscall 
+	
+			 
+	mov r9,rax			;file descriptor obtained from sysOpen is store in rax	
+	mov rdi, rax
+	mov rax, 1 			;system write
+	mov rsi,r8			;text 
+	mov rdx,r10			;length	
+	syscall
+
+	mov rax, 3 			;system close
+	mov rax,r9
+	syscall
+	ret
+
 
 
 
