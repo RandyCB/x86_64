@@ -10,12 +10,14 @@
 
 
 section .bss
-userInput resb 64
+	userInput resb 64
+	text resb 64
 
 section .text
-global printS
-global inputS
-global writeS
+	global printS
+	global inputS
+	global writeS
+	global readS
 
 printS:
 	mov rax, rdi				;getting first argument into rax
@@ -72,6 +74,30 @@ writeS:
 	syscall
 	ret
 
+readS:
+
+	;mov r8, rdi			;filename parameter
+	mov r10,rsi			;length parameter 
+	
+	mov rax, 2 			;system open 
+	;mov rdi, r8			;filename 		
+	mov rsi, 0			;mode do not matter for reading 
+	mov rdx, 0644o			; 0 + [r+w] + [r] + [r]  (#)o octal numbers
+	syscall 
+				 
+	mov r9,rax			;file descriptor obtained from sysOpen is store in rax	
+	mov rdi, rax
+	mov rax, 0 			;system read
+	mov rsi,text			;variable to store text from file
+	mov rdx,r10			;length	
+	syscall
+
+	mov rax, 3 			;system close
+	mov rax,r9
+	syscall
+	mov rax, rsi			;return text 
+	ret
+	
 
 
 

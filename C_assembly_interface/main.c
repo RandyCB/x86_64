@@ -12,9 +12,14 @@ int main()
 	
 	
 	char FileName[] = "testFile.txt";
-	char text[] = "Randy";
+	//char text[] = "Randy";	
+	//writeS(FileName,text,5);
 	
-	writeS(FileName,text,5);
+	char * text = readS(FileName, 5);
+	printS(text);
 	
+	;char EOF[] = "\n";
+	;printS(EOF);
+
  	return 0;
 }
